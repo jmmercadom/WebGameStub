@@ -42,11 +42,19 @@ require(['jquery'], function($) {
 		bgGun.ready = true;
 	};
 	bgGun.src = "img/gun3.png";
+	
+	//Bullet Image
+	var bulletReady = false;
 
 	// Game objects
 	var gun = {
 		speed: 256
 	};
+
+	var bullet = {
+		live: false,
+	        speed: 200 
+	}
 
 	// Handle keyboard controls
 	var keysDown = {};
@@ -67,12 +75,26 @@ require(['jquery'], function($) {
 
 	// Update game objects
 	function update( modifier ) {
-		if (37 in keysDown) {
+		if (37 in keysDown) { // Player holding left
 			gun.x -= gun.speed * modifier;
 		}
 
-		if (39 in keysDown) {
+		if (39 in keysDown) { // Player holding right
 			gun.x += gun.speed * modifier;
+		}
+
+		if (13 in keysDown && !bullet.live) {
+			bullet.live = true;
+			bullet.x = gun.x;
+			bullet.y = gun.y;
+		}
+
+		if (bullet.live) {
+			if (bullet.y < 0) {
+				bullet.live = false;
+				return;
+			}
+			bullet.y -= bullet.speed * modifier;
 		}
 
 	};
@@ -87,6 +109,9 @@ require(['jquery'], function($) {
 			ctx.drawImage(bgGun, gun.x, gun.y);
 		}
 
+		if (bullet.live) {
+			ctx.fillRect(bullet.x + 20, bullet.y, 6, 15);
+		}
 	};
 
 	// The main game loop
