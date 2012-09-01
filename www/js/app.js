@@ -81,6 +81,8 @@ require(['jquery'], function($) {
 		ySpeed: 100
 	};
 
+	var pigsCount = 0;
+
 	// Handle keyboard controls
 	var keysDown = {};
 
@@ -135,7 +137,6 @@ require(['jquery'], function($) {
 		if (duck.live) {
 			if (duck.toHeaven) {
 				if (duck.y < -90) {
-					//duckReset(duck);
 					duck.live = false;
 				}
 				duck.y -= duck.ySpeed * modifier;
@@ -143,7 +144,6 @@ require(['jquery'], function($) {
 			else {
 				if (duck.x > canvas.width) {
 					duck.live = false;
-					//duckReset(duck);
 					return;
 				}
 				duck.x += duck.speed * modifier;
@@ -155,7 +155,7 @@ require(['jquery'], function($) {
 		// Did we killed the pig?
 		if (
 				bullet.live
-				&& !duck.death
+				&& !duck.toHeaven
 				&& bullet.x >= duck.x
 				&& bullet.x <= duck.x + 141
 				&& bullet.y <= duck.y + 111
@@ -163,6 +163,7 @@ require(['jquery'], function($) {
 		   ) {
 			   duck.toHeaven = true;
 			   bullet.live = false;
+			   pigsCount += 1;
 		   }
 	};
 
@@ -185,6 +186,13 @@ require(['jquery'], function($) {
 				image = bgBacon;
 			ctx.drawImage(image, duck.x, duck.y);
 		}
+
+		ctx.fillStyle = "rgb(250, 250, 250)";
+		ctx.font = "24px Helvetica";
+		ctx.textAlign = "left";
+		ctx.textBaseline = "top";
+		ctx.fillText("Pigs on heaven: " + pigsCount, 32, 32);
+
 	};
 
 	var main = function () {
