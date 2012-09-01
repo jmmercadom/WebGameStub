@@ -54,13 +54,12 @@ require(['jquery'], function($) {
 	};
 	bgDuck.src = "img/duck.png";
 
-	//Death duck Image
-	var duckReady = false;
-	var bgDeathDuck = new Image();
-	bgDeathDuck.onload = function() {
-		bgDeathDuck.ready = true;
+	//Bacon Image
+	var bgBacon = new Image();
+	bgBacon.onload = function() {
+		bgBacon.ready = true;
 	};
-	bgDeathDuck.src = "img/duck.png";
+	bgBacon.src = "img/bacon.png";
 
 	// Game objects
 	var gun = {
@@ -73,9 +72,8 @@ require(['jquery'], function($) {
 	}
 
 	var duck = {
-		speed: 100,//256
-		dieSpeed: 500,
-		death: false
+		speed: 256,
+		ySpeed: 100
 	};
 
 	// Handle keyboard controls
@@ -91,6 +89,7 @@ require(['jquery'], function($) {
 
 	function resetDuck(d) {
 		d.live = true;
+		d.toHeaven = false;
 		d.x = -100;
 		d.y = canvas.height - 500;
 	}
@@ -129,11 +128,21 @@ require(['jquery'], function($) {
 		}
 
 		if (duck.live) {
-			if (duck.x > canvas.width) {
-				duck.live = false;
-				return;
+			if (duck.toHeaven) {
+				if (duck.y < -30) {
+					//duckReset(duck);
+					duck.live = false;
+				}
+				duck.y -= duck.ySpeed * modifier;
 			}
-			duck.x += duck.speed * modifier;
+			else {
+				if (duck.x > canvas.width) {
+					duck.live = false;
+					//duckReset(duck);
+					return;
+				}
+				duck.x += duck.speed * modifier;
+			}
 		} else {
 			resetDuck(duck);
 		}
@@ -147,21 +156,8 @@ require(['jquery'], function($) {
 				&& bullet.y <= duck.y + 111
 				&& bullet.y >= duck.y
 		   ) {
-			   console.log('hit');
-			   duck.death = true;
-			   duck.lifeTime = 1000;
+			   duck.toHeaven = true;
 		   }
-		if (duck.death) {
-			duck.lifeTime -= duck.dieSpeed;
-			console.log('diying');
-			console.log(duck.lifeTime);
-		}
-
-		if (duck.death && duck.lifeTime < 0) {
-			duck.death = false;
-			console.log('finally death');
-		}
-
 	};
 
 	// Draw everything
@@ -178,7 +174,10 @@ require(['jquery'], function($) {
 			ctx.fillRect(bullet.x + 20, bullet.y, 6, 15);
 		}
 		if (duck.live) {
-			ctx.drawImage(bgDuck, duck.x, duck.y);
+			var image = bgDuck;
+			if (duck.toHeaven)
+				image = bgBacon;
+			ctx.drawImage(image, duck.x, duck.y);
 		}
 	};
 
