@@ -129,7 +129,7 @@ require(['jquery'], function($) {
 
 		if (duck.live) {
 			if (duck.toHeaven) {
-				if (duck.y < -30) {
+				if (duck.y < -90) {
 					//duckReset(duck);
 					duck.live = false;
 				}
@@ -157,6 +157,7 @@ require(['jquery'], function($) {
 				&& bullet.y >= duck.y
 		   ) {
 			   duck.toHeaven = true;
+			   bullet.live = false;
 		   }
 	};
 
