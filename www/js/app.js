@@ -27,6 +27,12 @@ require(['jquery'], function($) {
 	canvas.height = 575;
 	document.body.appendChild(canvas);
 
+    var audioElement = document.createElement('audio');
+    audioElement.setAttribute('src', 'sound/pig.ogg');
+    audioElement.load();
+    document.body.appendChild(audioElement);
+
+
 	//Background image
 	var bgReady = false;
 	var bgImage = new Image();
@@ -164,6 +170,7 @@ require(['jquery'], function($) {
 			   duck.toHeaven = true;
 			   bullet.live = false;
 			   pigsCount += 1;
+               audioElement.play();
 		   }
 	};
 
