@@ -57,12 +57,12 @@ require(['jquery'], function($) {
 
 	// Game objects
 	var gun = {
-		speed: 256
+		speed: 400
 	};
 
 	var bullet = {
 		live: false,
-	        speed: 200 
+	        speed: 250 
 	}
 	
 	var duck = {
