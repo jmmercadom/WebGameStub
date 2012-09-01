@@ -79,8 +79,8 @@ require(['jquery'], function($) {
 		gun.x = middleScreen;
 		gun.y = canvas.height - 100;
 
-        duck.x = canvas.width;
-        duck.y = canvas.height - 400;
+        duck.x = 0;
+        duck.y = canvas.height -500;
 	};
 
 	// Update game objects
