@@ -91,7 +91,7 @@ require(['jquery'], function($) {
 		d.live = true;
 		d.toHeaven = false;
 		d.x = -100;
-		d.y = canvas.height - 500;
+		d.y = canvas.height - 100 - Math.floor(Math.random() * 500) ;
 	}
 
 	//Reset game to original state
