@@ -46,6 +46,15 @@ require(['jquery'], function($) {
 	//Bullet Image
 	var bulletReady = false;
 
+    	//Duck Image
+	var duckReady = false;
+	var bgDuck = new Image();
+	bgDuck.onload = function() {
+		bgDuck.ready = true;
+	};
+	bgDuck.src = "img/duck.png";
+
+
 	// Game objects
 	var gun = {
 		speed: 256
@@ -55,6 +64,10 @@ require(['jquery'], function($) {
 		live: false,
 	        speed: 200 
 	}
+	
+	var duck = {
+		speed: 256
+	};
 
 	// Handle keyboard controls
 	var keysDown = {};
@@ -69,8 +82,12 @@ require(['jquery'], function($) {
 
 	//Reset game to original state
 	function reset() {
-		gun.x = canvas.width / 2;
+        middleScreen = canvas.width / 2;
+		gun.x = middleScreen;
 		gun.y = canvas.height - 100;
+
+        duck.x = canvas.width;
+        duck.y = canvas.height - 400;
 	};
 
 	// Update game objects
@@ -96,6 +113,7 @@ require(['jquery'], function($) {
 			}
 			bullet.y -= bullet.speed * modifier;
 		}
+        duck.x += duck.speed * modifier;
 
 	};
 
@@ -112,9 +130,12 @@ require(['jquery'], function($) {
 		if (bullet.live) {
 			ctx.fillRect(bullet.x + 20, bullet.y, 6, 15);
 		}
+        if (bgDuck) {
+            ctx.drawImage(bgDuck, duck.x, duck.y);
+        }
+
 	};
 
-	// The main game loop
 	var main = function () {
 		var now = Date.now();
 		var delta = now - then;
