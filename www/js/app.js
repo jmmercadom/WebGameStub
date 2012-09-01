@@ -25,7 +25,7 @@ require(['jquery'], function($) {
 	var ctx = canvas.getContext("2d");
 	canvas.width = 700;
 	canvas.height = 575;
-	document.body.appendChild(canvas);
+    $("#game-area").append(canvas);
 
     var audioElement = document.createElement('audio');
     audioElement.setAttribute('src', 'sound/pig.ogg');
