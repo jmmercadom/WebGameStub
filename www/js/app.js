@@ -45,6 +45,11 @@ require(['jquery'], function($) {
 
 	//Bullet Image
 	var bulletReady = false;
+	var bgBullet = new Image();
+	bgBullet.onload = function() {
+		bgBullet.ready = true;
+	};
+	bgBullet.src = "img/bullet.png";
 
 	//Duck Image
 	var duckReady = false;
@@ -172,7 +177,7 @@ require(['jquery'], function($) {
 		}
 
 		if (bullet.live) {
-			ctx.fillRect(bullet.x + 20, bullet.y, 6, 15);
+			ctx.drawImage(bgBullet, bullet.x + 18, bullet.y);
 		}
 		if (duck.live) {
 			var image = bgDuck;
