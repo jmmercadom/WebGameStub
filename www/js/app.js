@@ -35,20 +35,56 @@ require(['jquery'], function($) {
 	};
 	bgImage.src = "img/background.png";
 
+	//Gun Image
+	var gunReady = false;
+	var bgGun = new Image();
+	bgGun.onload = function() {
+		bgGun.ready = true;
+	};
+	bgGun.src = "img/gun3.png";
+
+	// Game objects
+	var gun = {
+		speed: 256
+	};
+
+	// Handle keyboard controls
+	var keysDown = {};
+
+	addEventListener("keydown", function (e) {
+		keysDown[e.keyCode] = true;
+	}, false);
+
+	addEventListener("keyup", function (e) {
+		delete keysDown[e.keyCode];
+	}, false);
+
 	//Reset game to original state
 	function reset() {
-
+		gun.x = canvas.width / 2;
+		gun.y = canvas.height - 100;
 	};
 
 	// Update game objects
 	function update( modifier ) {
+		if (37 in keysDown) {
+			gun.x -= gun.speed * modifier;
+		}
+
+		if (39 in keysDown) {
+			gun.x += gun.speed * modifier;
+		}
 
 	};
 
 	// Draw everything
 	function render() {
-		if(bgReady) {
+		if (bgReady) {
 			ctx.drawImage(bgImage, 0, 0);
+		}
+
+		if (bgGun) {
+			ctx.drawImage(bgGun, gun.x, gun.y);
 		}
 
 	};
