@@ -1,71 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
+<head>
+	<meta charset="utf-8">
+	<title>Make Bacon!</title>
+	<meta name="description" content="Shooting flying pigs is the easiest way to make bacon!">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="css/app.css">
+	<script src="js/lib/modernizr-2.5.3.min.js"></script>
+</head>
+<body>
+<div class="component-fluid main-container">
+	<div class="row-fluid">
+		<div class="span5 hero-unit">
+			<h1>Make Bacon!</h1>
 
-    <title></title>
-    <meta name="description" content="">
+			<h5>Shooting flying pigs is the easiest way to make bacon!</h5>
+			<pre>Use arrows to move the gun and shoot with enter</pre>
+			<h2>Developers</h2>
 
-    <!-- Mobile viewport optimized: h5bp.com/viewport -->
-    <meta name="viewport" content="width=device-width">
-
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
-
-    <!-- If you intend to use volo's build command, do not add any
-         other CSS here and @import it in app.css. It will be inlined
-         when building. -->
-    <link rel="stylesheet" href="css/app.css">
-
-    <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
-
-    <!-- All JavaScript at the bottom, except this Modernizr build.
-         Modernizr enables HTML5 elements & feature detects for optimal performance.
-         Create your own custom Modernizr build: www.modernizr.com/download/ -->
-    <script src="js/lib/modernizr-2.5.3.min.js"></script>
-  </head>
-  <body>
-
-    <!-- Add your site or application content here -->
-    <div class="content">
-        <h1 class="well">Make Bacon!</h1>
-        <div id="game-area"></div>
-    </div>
-    <!-- JavaScript at the bottom for fast page loading: http://developer.yahoo.com/performance/rules.html#js_bottom -->
-
-    <!-- Using require.js, a module system for javascript, include the
-         js files. This loads "main.js", which in turn can load other
-         files, all handled by require.js:
-         http://requirejs.org/docs/api.html#jsfiles -->
-    <script type="text/javascript"
-            data-main="js/app.js"
-            src="js/lib/require.js"></script>
-
-    <!-- If you don't want to use require.js, just delete the above
-         tag (and this) and uncomment the following script blocks. -->
-
-    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back
-         to local if offline. -->
-    <!--
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="js/lib/jquery.js"><\/script>')</script>
-    -->
-
-    <!-- Include the in-app payments API
-         https://developer.mozilla.org/en/Apps/In-app_payments -->
-    <!-- <script src="//marketplace-cdn.addons.mozilla.net/mozmarket.js"></script> -->
-
-    <!-- If using Twitter Bootstrap and not require.js, include the js.
-         If you are using require.js, see js/lib/app.js -->
-    <!-- <script src="/js/lib/bootstrap.min.js"></script> -->
-
-    <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
-         mathiasbynens.be/notes/async-analytics-snippet -->
-    <!-- Uncomment the following 6 lines to opt in to this service -->
-    <!--<script>-->
-      <!--var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];-->
-      <!--(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];-->
-      <!--g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';-->
-      <!--s.parentNode.insertBefore(g,s)}(document,'script'));-->
-    <!--</script>-->
-  </body>
+			<ul class="thumbnails">
+				<li class="span6">
+					<div class="thumbnail">
+						<div class="thumb-text">
+							<h4>Jesus Mercado</h4>
+							<p class="dev-description">
+								Dev from Bolivia, ThoughtWorker
+							</p>
+							<a href="https://github.com/jesusmercado" class="btn">
+								<img src="https://github.com/favicon.ico"/>
+							</a>
+						</div>
+					</div>
+				</li>
+				<li class="span6">
+					<div class="thumbnail">
+						<div class="thumb-text">
+							<h4>Junior Ales</h4>
+							<p class="dev-description">
+								Dev from Brazil, ThoughtWorker
+							</p>
+							<a href="https://github.com/junior-ales" class="btn">
+								<img src="https://github.com/favicon.ico"/>
+							</a>
+							<a href="https://twitter.com/junior_ales" class="btn">
+								<img src="https://twitter.com/favicons/favicon.ico"/>
+							</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="span7">
+			<div id="game-area"></div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" data-main="js/app.js" src="js/lib/require.js"></script>
+</body>
 </html>
