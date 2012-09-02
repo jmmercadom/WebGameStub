@@ -74,7 +74,8 @@ require(['jquery'], function($) {
 
 	// Game objects
 	var gun = {
-		speed: 400
+		speed: 400,
+		width: 44
 	};
 
 	var bullet = {
@@ -119,11 +120,15 @@ require(['jquery'], function($) {
 	// Update game objects
 	function update( modifier ) {
 		if (37 in keysDown) { // Player holding left
-			gun.x -= gun.speed * modifier;
+			if (gun.x >= 0) {
+				gun.x -= gun.speed * modifier;
+			}
 		}
 
 		if (39 in keysDown) { // Player holding right
-			gun.x += gun.speed * modifier;
+			if (gun.x <= canvas.width - gun.width) {
+				gun.x += gun.speed * modifier;
+			}
 		}
 
 		if (13 in keysDown && !bullet.live) {
