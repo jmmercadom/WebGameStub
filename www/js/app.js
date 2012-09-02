@@ -88,7 +88,8 @@ require(['jquery'], function($) {
 		ySpeed: 100
 	};
 
-	var pigsCount = 0;
+	var ducksCount = 0;
+	var time = 0;
 
 	// Handle keyboard controls
 	var keysDown = {};
@@ -114,11 +115,20 @@ require(['jquery'], function($) {
 		gun.x = middleScreen;
 		gun.y = canvas.height - 100;
 
+		time = 0;
+		ducksCount = 0
+		bullet.live = false;
 		resetDuck(duck);
 	};
 
 	// Update game objects
 	function update( modifier ) {
+		time++;
+
+		if (time >= 1000) {
+			reset();
+			return;
+		}
 		if (37 in keysDown) { // Player holding left
 			if (gun.x >= 0) {
 				gun.x -= gun.speed * modifier;
@@ -163,7 +173,7 @@ require(['jquery'], function($) {
 			resetDuck(duck);
 		}
 
-		// Did we killed the pig?
+		// Did we killed the duck?
 		if (
 				bullet.live
 				&& !duck.toHeaven
@@ -174,7 +184,7 @@ require(['jquery'], function($) {
 		   ) {
 			   duck.toHeaven = true;
 			   bullet.live = false;
-			   pigsCount += 1;
+			   ducksCount += 1;
                audioElement.play();
 		   }
 	};
@@ -199,11 +209,12 @@ require(['jquery'], function($) {
 			ctx.drawImage(image, duck.x, duck.y);
 		}
 
-		ctx.fillStyle = "rgb(250, 250, 250)";
 		ctx.font = "24px Helvetica";
+		ctx.fillStyle = "black";
 		ctx.textAlign = "left";
 		ctx.textBaseline = "top";
-		ctx.fillText("Pigs on heaven: " + pigsCount, 32, 32);
+		ctx.fillText("Pigs on heaven: " + ducksCount, 32, 32);
+		ctx.fillText("Time: " + (time / 100).toFixed(2), 550, 32);
 
 	};
 
