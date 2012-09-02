@@ -10,11 +10,9 @@
 // if google is down
 require.config({
 	baseUrl: 'js/lib',
-paths: {
-	'jquery':
-	['//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min',
-'lib/jquery']
-}
+	paths: {
+		'jquery': ['//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min', 'lib/jquery']
+	}
 });
 
 var global = this;
@@ -27,11 +25,11 @@ require(['jquery'], function($) {
 	canvas.height = 575;
     $("#game-area").append(canvas);
 
+	// Create the audio tag
     var audioElement = document.createElement('audio');
     audioElement.setAttribute('src', 'sound/pig.ogg');
     audioElement.load();
     document.body.appendChild(audioElement);
-
 
 	//Background image
 	var bgReady = false;
@@ -81,7 +79,7 @@ require(['jquery'], function($) {
 	var bullet = {
 		live: false,
 		speed: 250
-	}
+	};
 
 	var duck = {
 		speed: 256,
@@ -90,6 +88,7 @@ require(['jquery'], function($) {
 
 	var ducksCount = 0;
 	var time = 0;
+	var ranking = new Array(0, 0, 0, 0, 0);
 
 	// Handle keyboard controls
 	var keysDown = {};
@@ -101,13 +100,6 @@ require(['jquery'], function($) {
 	addEventListener("keyup", function (e) {
 		delete keysDown[e.keyCode];
 	}, false);
-
-	function resetDuck(d) {
-		d.live = true;
-		d.toHeaven = false;
-		d.x = -100;
-		d.y = canvas.height - 100 - Math.floor(Math.random() * 500) ;
-	}
 
 	//Reset game to original state
 	function reset() {
@@ -121,11 +113,19 @@ require(['jquery'], function($) {
 		resetDuck(duck);
 	};
 
+	function resetDuck(d) {
+		d.live = true;
+		d.toHeaven = false;
+		d.x = -100;
+		d.y = canvas.height - 100 - Math.floor(Math.random() * 500) ;
+	};
+
 	// Update game objects
 	function update( modifier ) {
 		time++;
 
-		if (time >= 1000) {
+		if (time >= 6000) {
+			updateRanking();
 			reset();
 			return;
 		}
@@ -188,6 +188,27 @@ require(['jquery'], function($) {
                audioElement.play();
 		   }
 	};
+
+	// Ranking
+	function updateRanking() {
+		ranking.sort(function(a,b){return b-a});
+		for(j = 0; j < ranking.length; j++) {
+			if (ranking[j] < ducksCount) {
+				ranking.pop();
+				ranking.push(ducksCount);
+				ranking.sort(function(a,b){return b-a});
+				updateScoreTable();
+				return;
+			}
+		}
+	}
+
+	function updateScoreTable() {
+		for (i = 0; i < ranking.length; i++) {
+			var rkContent = $('#position' + (i + 1) + ' p');
+			rkContent.replaceWith('<p>' + ranking[i] + ' pigs in heaven</p>');
+		}
+	}
 
 	// Draw everything
 	function render() {
