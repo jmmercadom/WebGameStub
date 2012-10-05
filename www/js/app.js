@@ -31,6 +31,12 @@ require(['jquery'], function($) {
     audioElement.load();
     document.body.appendChild(audioElement);
 
+  // Create shooting gun audio element
+  var gunSound = document.createElement('audio');
+  gunSound.setAttribute('src', 'sound/gun.ogg');
+  gunSound.load();
+  document.body.appendChild(gunSound);
+
 	//Background image
 	var bgReady = false;
 	var bgImage = new Image();
@@ -73,7 +79,10 @@ require(['jquery'], function($) {
 	// Game objects
 	var gun = {
 		speed: 400,
-		width: 44
+		width: 44,
+    fire: function() {
+      gunSound.play();
+    }
 	};
 
 	var bullet = {
@@ -142,6 +151,7 @@ require(['jquery'], function($) {
 		}
 
 		if (13 in keysDown && !bullet.live) {
+      gun.fire();
 			bullet.live = true;
 			bullet.x = gun.x;
 			bullet.y = gun.y;
