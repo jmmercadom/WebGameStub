@@ -42,6 +42,11 @@ require(['jquery'], function($) {
 	var bgImage = new Image();
 	bgImage.onload = function() {
 		bgReady = true;
+        reset();
+	    // Execute as fast as possible
+	    $('#welcome').hide();
+        $('#game-area').show();
+        setInterval(main, 1);
 	};
 	bgImage.src = "img/background.png";
 
@@ -195,7 +200,7 @@ require(['jquery'], function($) {
 			   duck.toHeaven = true;
 			   bullet.live = false;
 			   ducksCount += 1;
-         audioElement.play();
+               audioElement.play();
 		   }
 	};
 
@@ -249,31 +254,18 @@ require(['jquery'], function($) {
 
 	};
 
-  function startGame() {
-    $('#welcome').hide();
-    $('#game-area').show();
-  }
-
 	var main = function () {
 		var now = Date.now();
+        if (typeof then === 'undefined') { then = Date.now(); }
 		var delta = now - then;
 
-    while(!bgReady) { ; }
-
-    startGame();
-
-		update(delta / 1000);
-
+        update(delta / 1000);
 		render();
 
 		then = now;
 	};
 
 	// Let's play this game!
-	reset();
-	var then = Date.now();
-	// Execute as fast as possible
-	setInterval(main, 1);
 
 });
 
