@@ -195,7 +195,7 @@ require(['jquery'], function($) {
 			   duck.toHeaven = true;
 			   bullet.live = false;
 			   ducksCount += 1;
-               audioElement.play();
+         audioElement.play();
 		   }
 	};
 
@@ -249,11 +249,21 @@ require(['jquery'], function($) {
 
 	};
 
+  function startGame() {
+    $('#welcome').hide();
+    $('#game-area').show();
+  }
+
 	var main = function () {
 		var now = Date.now();
 		var delta = now - then;
 
+    while(!bgReady) { ; }
+
+    startGame();
+
 		update(delta / 1000);
+
 		render();
 
 		then = now;

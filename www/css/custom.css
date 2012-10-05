@@ -19,3 +19,7 @@ h2 {
 .thumb-text .dev-description {
 	font-size: small;
 }
+
+#game-area {
+  display: none;
+}
